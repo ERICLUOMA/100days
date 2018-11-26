@@ -1,0 +1,65 @@
+
+cars = {
+
+    'Ford': ['Falcon', 'Focus', 'Festiva', 'Fairlane'],
+    'Holden': ['Commodore', 'Captiva', 'Barina', 'Trailblazer'],
+    'Nissan': ['Maxima', 'Pulsar', '350Z', 'Navara'],
+    'Honda': ['Civic', 'Accord', 'Odyssey', 'Jazz'],
+    'Jeep': ['Grand Cherokee', 'Cherokee', 'Trailhawk', 'Trackhawk']
+
+}
+
+
+def get_all_jeeps(cars=cars):
+    """return a comma  + space (', ') separated string of jeep models (original order)"""
+    jeeps_storage = []
+    for keys, values in cars.items():
+        if keys == 'Jeep':
+            jeeps_storage.append(values)
+            # print(*jeeps_storage, sep = ", ")
+            # print(' '.join((str(x) for x in jeeps_storage)))
+            print(values)
+        else:
+            continue
+
+
+def get_first_model_each_manufacturer(cars=cars):
+    """return a list of matching models (original ordering)"""
+    for key, value in cars.items():
+        print(key, value[0])
+
+
+def get_all_matching_models(cars=cars, grep='trail'):
+    """return a list of all models containing the case insensitive
+       'grep' string which defaults to 'trail' for this exercise,
+       sort the resulting sequence alphabetically"""
+    grep_list = []
+    grep_list2 = []
+    for key, value in cars.items():  # took values from a dictionary and put in list
+        grep_list.append(value)
+    for subitem in grep_list:  # building a flat list from list of lists.
+        for item in subitem:
+            grep_list2.append(item)
+
+    # search results.
+    results = [x for x in grep_list2 if "Trail" in x]
+    print(results)
+
+
+def sort_car_models(cars=cars):
+    for key, value in sorted(cars.items(), key=lambda item: item[1]):
+        print(key, value)
+
+
+def main():
+    print('------------------------')
+    get_all_jeeps()
+    print('------------------------')
+    get_first_model_each_manufacturer()
+    print('------------------------')
+    get_all_matching_models()
+    print('------------------------')
+    sort_car_models()
+
+
+main()
