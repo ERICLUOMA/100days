@@ -1,0 +1,138 @@
+"""
+
+Created on Thu Nov 22 09:17:51 2018
+
+Steps:
+
+    1. Read in data DATA.csv
+
+    2. setup named tuple for columns and for output.
+
+    3. add all rows of csv into defaultdic with the date as the key for each tuple.
+
+    4. Output List of tuples with a unique key of the date.
+
+   5. demo of how these collections work.
+
+   
+
+@author: eric
+
+"""
+
+ 
+
+from collections import defaultdict, namedtuple, Counter
+
+ 
+
+import csv
+
+ 
+
+inpt_data = "C:\\Users\\e\\DATA.csv"
+
+Tup_data = namedtuple('Date', 'Day EUR EU3M Spread EURGBP BP3M Spread2')
+
+data_list = defaultdict(list)
+
+ 
+
+with open(inpt_data) as f:
+
+    for line in csv.DictReader(f):
+
+        try:
+
+            day = line['Day']
+
+            date = line['Date']
+
+            ccy = float(line['EUR'])
+
+            ccyvol = float(line['EU3M'])
+
+            spread = float(line['Spread'])
+
+            ccy2 = float(line['EURGBP'])
+
+            ccyvol2 = float(line['BP3M'])
+
+            spread2 = float(line['Spread2'])
+
+        except ValueError:
+
+            continue
+
+        d = Tup_data(Day=day, EUR=ccy, EU3M=ccyvol, Spread=spread,
+
+                     EURGBP=ccy2, BP3M=ccyvol2, Spread2=spread2)
+
+        data_list[date].append(d)
+
+ 
+
+"""
+
+# Gettings the Key/Values
+
+for key, value in data_list.items():
+
+    # Each Key and Value:
+
+    print('Key:', key)
+
+    print('Value:', value)
+
+ 
+
+    # We know value is a list, so let's iterate through it:
+
+    for item in value:
+
+        print('Values Item:', item)
+
+ 
+
+        # We know each item is a NamedTuple:
+
+        for name, item_value in item._asdict().items():
+
+            print('Named Tuple Names and Values:',
+
+                  name, item_value)
+
+"""
+
+avg_rate = []
+
+counter_for_avg = 0
+
+#This is a list comp that will access a single member of the namedtuple.
+
+for i in data_list:
+
+    testing = list(data_list.values())[counter_for_avg][0].EUR
+
+    counter_for_avg += 1
+
+    avg_rate.append(testing) #pulled all EUR rates into a single list
+
+print()
+
+print('Total number of rates in calculation:',counter_for_avg)
+
+print()
+
+print('Are there any rates that appear more than once:',
+
+      Counter(avg_rate).most_common(5))
+
+print()
+
+print('Here is the avg rate over the year:',
+
+      sum(avg_rate)/len(avg_rate))
+
+ 
+
