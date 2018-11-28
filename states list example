@@ -104,7 +104,7 @@ def combine_state_names_and_abbreviations(us_state_abbrev=us_state_abbrev,
         
 
 def main():
-    
+    #Testing
     print('Every tenth state in the list:')
     every_tenth_state = get_every_nth_state()
     print(every_tenth_state, '\n')
