@@ -1,0 +1,73 @@
+def get_input():
+
+    num = float(input("Choose a number to see if it is FIZZ, BUZZ or Both:"))
+
+    return num
+
+   
+
+    
+
+def main():
+
+    number_chosen = get_input()
+
+   
+
+    div_by_three = number_chosen % 3
+
+    div_by_five = number_chosen % 5
+
+   
+
+    if div_by_three == 0 and div_by_five == 0:
+
+        print('FIZZBUZZ')
+
+    elif div_by_five == 0:
+
+        print('BUZZ')
+
+    elif div_by_three == 0:
+
+        print('FIZZ')
+
+    else:
+
+        print('The number you choose is neither FIZZ or BUZZ:',number_chosen)
+
+    print('Here is the complete list:')
+
+ 
+
+    num_list = list(range(1,101))
+
+    idx =0
+
+    for item in num_list:
+
+        mod_three = item % 3
+
+        mod_five = item % 5
+
+        if mod_three == 0 and mod_five == 0:
+
+            num_list[idx] = 'FIZZBUZZ'
+
+        elif mod_five == 0:
+
+            num_list[idx] = 'BUZZ'
+
+        elif mod_three == 0:
+
+            num_list[idx] = 'FIZZ'
+
+        idx +=1
+
+    print(num_list)
+
+    
+
+    
+
+main()   
