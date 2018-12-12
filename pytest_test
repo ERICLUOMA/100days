@@ -1,0 +1,17 @@
+from unittest.mock import patch
+
+ 
+
+from FizzBuzz import main
+
+ 
+
+@patch("builtins.input",lambda _: 3)
+
+#@patch("builtins.input", lambda _: side_effect=[2,3,54])
+
+def test_main():
+
+    main()
+
+    assert main
