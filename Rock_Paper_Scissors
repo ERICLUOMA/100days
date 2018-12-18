@@ -1,0 +1,105 @@
+"""
+
+"""
+import random
+from rockpapsc import Roll, Player
+
+def main():
+    print_header()
+
+    rolls = [
+            Roll('rock'),
+            Roll('paper'),
+            Roll('scissors')
+            ]
+
+    name  = get_players_name()
+
+    player1 = Player(name)
+    player2 = Player("computer")
+
+    game_loop(player1,player2,rolls)
+
+
+def game_loop(player1,player2,rolls):
+    x = 0
+    while x < 3:
+
+        computer_roll = random.choice(rolls)
+        human_input = input("What do you choose: ".lower())
+
+        player1.store_guess(human_input)
+        player2.store_guess(computer_roll.name)
+
+        if (human_input == 'rock' or human_input == 'paper' or
+            human_input == 'scissors'):
+                human_roll = Roll(human_input)
+                outcome = human_roll.can_defeat(human_roll.name,
+                                                computer_roll.name)
+                print(player1.name, outcome)
+                player1.store_outcome(outcome)
+                x += 1
+        else:
+           print('Try again not valid input')
+
+
+    print('Game Over')
+    print(player1.name,'Picked the following: ')
+    player1.print_store_guess()
+    print(player2.name,'Picked the following: ')
+    player2.print_store_guess()
+    print()
+    player1.print_outcomes()
+
+
+def print_header():
+    print('-----------------------------------------')
+    print('           Rock Paper Scissors           ')
+    print('-----------------------------------------')
+    print()
+
+def get_players_name():
+        name = input("What is your name: ")
+        return name
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+from collections import defaultdict
+
+
+class Roll:
+    def __init__(self,name):
+        self.name = name
+
+    def can_defeat(self,player_roll,player2_roll):
+        d=defaultdict(dict,
+            {'rock': {'paper': 'lose', 'scissors': 'win', 'rock': 'tie'},
+             'paper': {'rock': 'win', 'scissors': 'lose', 'paper': 'tie'},
+             'scissors': {'rock': 'lose', 'paper': 'win', 'scissors': 'tie'}})
+
+        result = d[player_roll][player2_roll]
+        return result
+
+class Player:
+    def __init__(self,name):
+        self.name = name
+        self.guess_store = []
+        self.outcomes = []
+
+    def store_guess(self,choice):
+        self.guess_store.append(choice)
+
+    def print_store_guess(self):
+        for item in self.guess_store:
+            print(item)
+
+    def store_outcome(self,choice):
+        self.outcomes.append(choice)
+
+    def print_outcomes(self):
+        for item in self.outcomes:
+            print(item)
