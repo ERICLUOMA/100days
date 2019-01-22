@@ -1,0 +1,39 @@
+from itertools import combinations,permutations
+
+ 
+
+friends = "Bill Sam Eric Paul Rich Jeff Betty Zoe".split()
+
+team_size = 2
+
+order_does_matter = False
+
+  
+
+ 
+
+def friends_team():
+
+   
+
+    if order_does_matter == False:
+
+        for f in combinations(friends,r=team_size):
+
+            print(f)
+
+    else:
+
+           
+
+        for f in permutations(friends,r=team_size):
+
+            print(f)
+
+            
+
+            
+
+if __name__ == "__main__":
+
+    friends_team()
