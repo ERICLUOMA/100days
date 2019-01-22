@@ -1,0 +1,65 @@
+import itertools
+import os
+import urllib.request
+
+# PREWORK
+DICTIONARY = os.path.join('/temp', 'dictionary.txt')
+urllib.request.urlretrieve('https://bit.ly/2iQ3dlZ', DICTIONARY)
+
+with open(DICTIONARY) as f:
+    dictionary = set([word.strip().lower() for word in f.read().split()])
+
+draw = "blahdog"
+
+
+def get_possible_dict_words(draw):
+    """Get all possible words from a draw (list of letters) which are
+       valid dictionary words. Use _get_permutations_draw and provided
+       dictionary"""
+
+    draw = draw[:7]
+    list_of_words = _get_permutations_draw(draw)
+    final_list = [dict_word for item in list_of_words for dict_word in dictionary if dict_word in item]
+    return sorted(set(final_list))
+
+
+
+
+def _get_permutations_draw(draw):
+    """Helper to get all permutations of a draw (list of letters), hint:
+       use itertools.permutations (order of letters matters)"""
+    possible_words = itertools.permutations(draw, r=7)
+    completed_list = []
+    for i in possible_words:
+        a, b, c, d, e, f, g = i
+        completed_list.append(a + b + c + d + e + f + g)
+    return completed_list
+
+
+matches_returned = get_possible_dict_words(draw)
+
+print(matches_returned)
+
+
+def word_value(matches_returned):
+    for item in matches_returned:
+        word_score = 0
+        final_score = 0
+        for x in item:
+
+            if x in "eaotinrslu":
+                word_score += 1
+            elif x in "dg":
+                word_score += 2
+            elif x in "cmbp":
+                word_score += 3
+            elif x in "hfwyv":
+                word_score += 4
+            elif x in "k":
+                word_score += 5
+            elif x in "jx":
+                word_score += 8
+            elif x in "qz":
+                word_score += 10
+            final_score += word_score
+        print(item, "=", final_score)
