@@ -1,0 +1,13 @@
+from itertools import zip_longest
+
+names = 'Tim Bob Julian Carmen Sofia Mike Kim Andre'.split()
+locations = 'DE ES AUS NL BR US'.split()
+confirmed = [False, True, True, False, True]
+listgroup = [names, locations, confirmed]
+
+def get_attendees():
+    for name in zip_longest(*listgroup, fillvalue='-'):
+        print(name)
+
+if __name__ == '__main__':
+    get_attendees()
