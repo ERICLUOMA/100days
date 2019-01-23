@@ -1,0 +1,15 @@
+from functools import wraps
+
+def make_html(element):
+   '''Decorator value to consume in'''
+   def dec_to_get_func(func):
+       '''Decorator to add get function to pass in'''
+       '''@wraps is to maintain doc strings'''
+       @wraps(func)
+       def wrapper(*args, **kwargs):
+           '''Wrapper to orignal function'''
+           main_func =func(*args, **kwargs)
+           value = '<'+element+'>'+main_func+'</'+element+'>'
+           return value
+       return wrapper
+   return dec_to_get_func
